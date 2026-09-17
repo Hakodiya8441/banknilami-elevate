@@ -19,6 +19,8 @@
  */
 
 @theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Newsreader", serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,29 +61,45 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-surface: var(--surface);
+  --color-surface-deep: var(--surface-deep);
+  --color-positive: var(--positive);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.375rem;
+  --background: oklch(0.985 0.004 88);
+  --foreground: oklch(0.205 0.035 257);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.25 0.072 255);
+  --primary-foreground: oklch(0.985 0.004 88);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --accent: oklch(0.88 0.108 88);
+  --accent-foreground: oklch(0.22 0.052 255);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.88 0.015 255);
+  --input: oklch(0.88 0.015 255);
+  --ring: oklch(0.62 0.115 85);
+  --navy: oklch(0.205 0.058 256);
+  --navy-soft: oklch(0.27 0.068 255);
+  --navy-foreground: oklch(0.985 0.004 88);
+  --gold: oklch(0.78 0.13 83);
+  --gold-strong: oklch(0.71 0.14 75);
+  --surface: oklch(0.965 0.008 88);
+  --surface-deep: oklch(0.93 0.014 88);
+  --positive: oklch(0.55 0.115 160);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +158,30 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
   }
+
+  html { scroll-behavior: smooth; }
+  h1, h2, h3 { text-wrap: balance; }
+  ::selection { background: var(--gold); color: var(--navy); }
+  :focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 3px; }
 }
+
+@utility section-shell { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1.25rem; }
+@utility display-serif { font-family: var(--font-display); }
+@utility subtle-grid {
+  background-image: linear-gradient(to right, color-mix(in oklab, var(--navy) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--navy) 7%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility hero-shade { background: linear-gradient(90deg, color-mix(in oklab, var(--navy) 98%, transparent) 0%, color-mix(in oklab, var(--navy) 91%, transparent) 42%, color-mix(in oklab, var(--navy) 18%, transparent) 76%, transparent 100%); }
+@utility gold-line { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-soft { 50% { opacity: .55; } }
+.animate-rise { animation: rise .7s ease-out both; }
+.animate-rise-delay { animation: rise .7s .16s ease-out both; }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+@media (min-width: 640px) { .section-shell { padding-inline: 2rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
